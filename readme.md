@@ -2,11 +2,11 @@
 
 ## Learning Objectives
 
-- Explain what recursion is and why we use it
 - Identify the benefits of pure functions
 - Create a function that returns a function using closure.
-- Use `filter`, `map`, `reduce`, `sort`
+- Explain what recursion is and why we use it
 - Explain the concept of a first-class function
+- Use `filter`, `map`, `reduce`, `sort`
 
 ## Framing
 
@@ -80,6 +80,24 @@ console.log("after", nums)
 ```
 
 Modify `reverse` so that the original `nums` remains in the correct order.
+
+## Higher Order Functions
+
+Higher Order functions are functions that can take functions as arguments and/or
+return a function as output.
+
+<details>
+  <summary>Anyone remember where we've seen one?</summary>
+  <p>`.on('click')`</p>
+</details>
+
+You may have also seen with `forEach`:
+
+```js
+["a","b","c"].forEach((element, index) => {
+  console.log(`element ${element} is in position ${index}`)
+})
+```
 
 ## Sort
 
