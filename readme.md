@@ -2,10 +2,10 @@
 
 ## Learning Objectives
 
-- Identify the benefits of pure functions
-- Create a function that returns a function using closure.
+- Identify the benefits of pure functions and avoiding side effects
+- Define immutability and how it relates to pure functions
 - Explain what recursion is and why we use it
-- Explain the concept of a first-class function
+- Explain the concepts of first class and higher order functions
 - Use `filter`, `map`, `reduce`, `sort`
 
 ## Framing
@@ -80,6 +80,14 @@ console.log("after", nums)
 ```
 
 Modify `reverse` so that the original `nums` remains in the correct order.
+
+### Immutability
+
+In the above example, `collection` is a __mutable__ data structure. `Mutable`
+objects are objects whose state can be modified after creation.
+
+When working with pure functions, it is important to avoid changing (or mutating)
+objects outside of the function.
 
 ## Higher Order && First Class Functions
 
