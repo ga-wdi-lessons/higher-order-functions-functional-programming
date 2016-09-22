@@ -33,6 +33,21 @@ something's broken.
 
 >The problem with object-oriented languages is they’ve got all this implicit environment that they carry around with them. You wanted a banana but what you got was a gorilla holding the banana and the entire jungle. — Joe Armstrong
 
+>I’ll never forget that day when I was ready to cash in on the promise of Reuse by inheriting from an existing class. This was the moment I had been waiting for.
+A new project came along and I thought back to that Class that I was so fond of in my last project.
+No problem. Reuse to the rescue. All I gotta do is simply grab that Class from the other project and use it.
+Well… actually… not just that Class. We’re gonna need the parent Class. But… But that’s it.
+Ugh… Wait… Looks like we gonna also need the parent’s parent too... And then… We’re going to need ALL of the parents. Okay… Okay… I handle this. No problem.
+And great. Now it won’t compile. Why?? Oh, I see… This object contains this other object. So I’m gonna need that too. No problem.
+Wait… I don’t just need that object. I need the object’s parent and its parent’s parent and so on and so on with every contained object and ALL the parents of what those contain along with their parent’s, parent’s, parent’s…
+
+Let's look at another programming paradigm, __functional programming__.
+
+Functional programming is characterized by:
+
+- Pure functions without side effects
+- Avoiding changing state and mutable data
+
 ## Pure Functions (stateless)
 
 >In mathematics, a function is a relation between a set of inputs and a set of permissible outputs with the property that each input is related to exactly one output. 
@@ -49,8 +64,18 @@ function increaseAgeBy(int){
   return age += int
 }
 increaseAgeBy(2)
-// how can we demonstrate the impurity here?
 ```
+
+<details>
+  <summary>What makes this function impure?</summary>
+  <p>The function changes variables outside of the function. This is a side-effect
+  of the calling the function.</p>
+</details>
+
+<details>
+  <summary>How can you demonstrate the impurity?</summary>
+  <pre>console.log(age)</pre>
+</details>
 
 We can make this function pure by not changing anything outside the function:
 
@@ -116,7 +141,7 @@ You may have also seen with `forEach`:
 
 ### Sort
 
-The `sort` method in JS takes a callback argument, specifying how to order the elements:
+The [`sort`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) method in JS takes a callback argument, specifying how to order the elements:
 
 ```js
 var people = [
@@ -133,17 +158,17 @@ people.sort((person1, person2) => {
 
 Break up into groups of three:
 
-1. map
-1. reduce
-1. filter
-1. find
-1. every
-1. some
+1. [map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
+1. [reduce](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
+1. [filter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+1. [find](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
+1. [every](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)
+1. [some](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
 
 Once in your groups...
 
 1. Create an explain it to me like i'm 5 explanation
-1. Create a codpen / jsfiddle demoing how it works
+1. Create a codepen / jsfiddle demoing how it works
 1. Come up with a way to remember what it is and what it does
 
 ## Recursion
