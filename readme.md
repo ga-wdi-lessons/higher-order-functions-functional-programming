@@ -41,6 +41,8 @@ Ugh… Wait… Looks like we gonna also need the parent’s parent too... And th
 And great. Now it won’t compile. Why?? Oh, I see… This object contains this other object. So I’m gonna need that too. No problem.
 Wait… I don’t just need that object. I need the object’s parent and its parent’s parent and so on and so on with every contained object and ALL the parents of what those contain along with their parent’s, parent’s, parent’s…
 
+- https://medium.com/@cscalfani/goodbye-object-oriented-programming-a59cda4c0e53#.rmqoman2q
+
 Let's look at another programming paradigm, __functional programming__.
 
 Functional programming is characterized by:
