@@ -1,5 +1,7 @@
 # Functional Programming
 
+#### Please Clone this Repository Locally
+
 ## Learning Objectives
 
 - Identify the benefits of pure functions and avoiding side effects
@@ -92,21 +94,7 @@ increaseAgeBy(2)
 
 ### You do: Purify the function
 
-Given an impure function:
-
-```js
-function reverse(collection){
-  var reversed = collection.reverse()
-  return reversed
-}
-
-var nums = [1,2,3]
-console.log("before", nums)
-reverse(nums)
-console.log("after", nums)
-```
-
-Modify `reverse` so that the original `nums` remains in the correct order.
+01-purify-the-function.html
 
 ### Immutability
 
@@ -215,37 +203,32 @@ function fib(n){
 
 ### You do: Factorial
 
-Define a function `factorial` that takes one argument `n`.
-
-This function multiplies `n` by `n - 1` and repeates that process
-down to 1.
-
 <https://en.wikipedia.org/wiki/Factorial>
+
+02-factorial.html
 
 ### Loops can be replaced with recursion
 
 Let's count:
 
 ```js
-function countDownFrom(n){
-  console.log(n)
-  if(n === 0)
-    return
-  countDownFrom( --n )
+function countUpTo(n, current = 0){
+  console.log(current)
+  if(current === n) return
+  countUpTo(n,++current)
 }
-countDownFrom(10)
-```
 
-### You do: count up
-
-```js
-function countUpTo(n){
-  // ???
-}
 countUpTo(10)
 ```
 
+
+### You do: count down
+
+03-count-down-from.html
+
 ### You do: FizzBuzz without loops!
+
+Bonus: Complete this exercise without loops or conditionals.
 
 ## Addendum w/r/t the DOM
 
