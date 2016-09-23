@@ -94,7 +94,7 @@ increaseAgeBy(2)
 
 ### You do: Purify the function
 
-01-purify-the-function.html
+[Purify the Function](./01-purify-the-function.html)
 
 ### Immutability
 
@@ -205,7 +205,7 @@ function fib(n){
 
 <https://en.wikipedia.org/wiki/Factorial>
 
-02-factorial.html
+[Factorial](./02-factorial.html)
 
 ### Loops can be replaced with recursion
 
@@ -224,7 +224,7 @@ countUpTo(10)
 
 ### You do: count down
 
-03-count-down-from.html
+[Count Down From](./03-count-down-from.html)
 
 ### You do: FizzBuzz without loops!
 
