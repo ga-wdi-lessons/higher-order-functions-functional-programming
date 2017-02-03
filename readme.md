@@ -15,7 +15,7 @@ Programming at it's most basic level is the process developers undergo to instru
 
 So far in WDI, we've largely relied on the *procedural programming* paradigm, which is the notion of writing a series of step-by-step instructions for your computer to carry out. For example, we wrote out every `console.log()` or `alert()` message we wanted to appear based on what our user would input as a response in "Choose You Own Adventure".
 
-Most recently, we dipped our toes into the **object-oriented programming** paradigm. This design pattern allows us to considerably DRY up our code to achieve *abstraction*, *encapsulation* and *modularity*.
+Most recently, we dipped our toes into the **object-oriented programming** paradigm. This design pattern allows us to considerably DRY up our code to achieve ***abstraction***, ***encapsulation*** and ***modularity***.
 
 Let's look at another programming paradigm...
 
@@ -25,7 +25,7 @@ Functional programming has been called the [mustachioed hipster](https://www.sma
 
 [Ardent fans](https://www.youtube.com/watch?v=BMUiFMZr7vk&t=1s) have lauded functional programming for its emphasis on writing programs that will result in fewer bugs and more reusable code. The paradigm has historically been used with high-scale systems spanning thousands of networked computers, where it's critical that the program do exactly what's expected every time in the interest of performance and integrity. Many shied away from it, however, because "pure" functional languages are challenging to grasp and the paradigm was perceived as too "computer science-y" and academic.
 
-*So why is functional programming seeing a resurgence?*
+***So why is functional programming seeing a resurgence?***
 
 [Javascript is cool now.](http://blog.salsitasoft.com/why-now/)
 
@@ -38,7 +38,7 @@ Functional programming is characterized by **pure functions** and **function com
 * mutable data
 * side-effects
 
-_Huh?_
+***Huh?***
 
 Trying to understand the terminology associated with functional programming can be incredibly daunting. In the scope of this class, we're not going to go too in the weeds with the concepts, but we'll have initial exposure.
 
