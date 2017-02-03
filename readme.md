@@ -1,16 +1,15 @@
-# Higher-Order Functions
-
-#### Please Clone this Repository Locally
+# Functional Programming & Higher-Order Functions
 
 ## Learning Objectives
 
+- Explain the idea of programming paradigms
+- Highlight advantages of functional programming
 - Identify the benefits of pure functions and avoiding side effects
-- Define immutability and how it relates to pure functions
-- Explain what recursion is and why we use it
-- Explain the concepts of first class and higher order functions
-- Use `filter`, `map`, `reduce`, `sort`
+- Define the concepts of state and immutability
+- Explain the benefits of higher order functions
+- Implement `filter`, `map`, `reduce`, `sort` and other higher order functions
 
-## Framing
+## Framing (5 minutes)
 
 Programming at it's most basic level is the process developers undergo to instruct a computer to perform a task. But there are a number of programmatic approaches that can be taken to enable your computer to solve a specific problem. We call these approaches **programming paradigms.**
 
@@ -18,15 +17,30 @@ So far in WDI, we've largely relied on the *procedural programming* paradigm, wh
 
 Most recently, we dipped our toes into the **object-oriented programming** paradigm. This design pattern allows us to considerably DRY up our code to achieve *abstraction*, *encapsulation* and *modularity*.
 
-Let's look at another programming paradigm, __functional programming__.
+Let's look at another programming paradigm...
 
-Functional programming is characterized by **pure functions**, which avoid *changing state*, *mutable data* and *side-effects.*
+## Why Functional Programming? (10 minutes)
 
-## Let's Break it Down...
+Functional programming has been called the [mustachioed hipster](https://www.smashingmagazine.com/2014/07/dont-be-scared-of-functional-programming/) of the programming paradigms. But it's far from being a new concept. Lisp, one of the first programming languages ever created -- back in the 1950s -- had already embraced the paradigm.
 
->In mathematics, a function is a relation between a set of inputs and a set of permissible outputs with the property that each input is related to exactly one output.
+[Ardent fans](https://www.youtube.com/watch?v=BMUiFMZr7vk&t=1s) have lauded functional programming for its emphasis on writing programs that will result in fewer bugs and more reusable code. The paradigm has historically been used with high-scale systems spanning thousands of networked computers, where it's critical that the program do exactly what's expected every time in the interest of performance and integrity. Many shied away from it, however, because "pure" functional languages are challenging to grasp and the paradigm was perceived as too "computer science-y" and academic.
 
-<https://en.wikipedia.org/wiki/Function_(mathematics)>
+*So why is functional programming seeing a resurgence?*
+
+[Javascript is cool now.](http://blog.salsitasoft.com/why-now/)
+
+When [Brendan Eich](http://blog.salsitasoft.com/why-now/) created Javascript for his then-employer Netscape, he was ordered by management to make the language look like Java. He obliged somewhat and gave Javascript some key functional programming features.
+
+### What is Functional Programming? (20 minutes)
+
+Functional programming is characterized by **pure functions** and **function composition** and avoiding:
+* shared state
+* mutable data
+* side-effects
+
+*Huh?*
+
+Trying to understand the terminology associated with functional programming can be incredibly daunting. In the scope of this class, we're not going to go too in the weeds with the concepts, but we'll have initial exposure using fairly simple examples. 
 
 When we say __pure__ we mean a function, given the same inputs, will always return the same output.
 
@@ -62,9 +76,6 @@ increaseAgeBy(2)
 // how can we demonstrate the purity here?
 ```
 
-### You do: Purify the function
-
-[Purify the Function](./01-purify-the-function.html)
 
 ### Immutability
 
@@ -131,104 +142,7 @@ Once in your groups...
 1. Create a codepen / jsfiddle demoing how it works
 1. Come up with a way to remember what it is and what it does
 
-## Recursion
 
-<http://lmgtfy.com/?q=recursion>
+## Resources
 
-Recursion is when a function calls itself.
-
-Here's an infinite example:
-
-__Running this code in a browser will freeze your page__
-
-```js
-function loop(){
-  loop()
-}
-loop()
-```
-
-The Fibonacci sequence is a classic example of recursion.
-
-The fibonacci numbers of `n` are the fibonacci numbers of `n - 1` + the
-fibonacci numbers of `n - 2`,
-where the fibonacci numbers of `1` and `2` are both 1.
-
-```
-3: 1 + 1  = 2
-4: 1 + 2  = 3
-5: 2 + 3  = 5
-6: 3 + 5  = 8
-7: 5 + 8  = 13
-```
-
-```js
-function fib(n){
-  if(n === 1 || n === 2){
-    return 1
-  }
-  return fib(n-1) + fib(n-2)
-}
-```
-
-### You do: Factorial
-
-<https://en.wikipedia.org/wiki/Factorial>
-
-[Factorial](./02-factorial.html)
-
-### Loops can be replaced with recursion
-
-Let's count:
-
-```js
-function countUpTo(n, current = 0){
-  console.log(current)
-  if(current === n) return
-  countUpTo(n,++current)
-}
-
-countUpTo(10)
-```
-
-
-### You do: count down
-
-[Count Down From](./03-count-down-from.html)
-
-## Addendum w/r/t the DOM
-
-Functional principles can be applied to the DOM as well.
-
-Instead of creating objects with `render` methods, you have many functions
-responsible for generating small amounts of html.
-
-Here's a sample nav menu:
-
-```js
-document.body.appendChild(ul(
-  li(a('Home','/')),
-  li(a('About','/about')),
-  li(a('Contact Us','/contact'))
-))
-
-function ul(...children){
-  console.log(children)
-  var el = document.createElement('ul')
-  for(var i = 0; i < children.length; i++){
-    el.appendChild(children[i])
-  }
-  return el
-}
-function li(child){
-  var el = document.createElement('li')
-  el.appendChild(child)
-  return el
-}
-function a(text,href){
-  var anchor = document.createElement("a")
-  anchor.innerHTML = text
-  anchor.href = href
-  return anchor
-}
-```
+- [Don't Be Scared of Functional Programming](https://www.smashingmagazine.com/2014/07/dont-be-scared-of-functional-programming/)
