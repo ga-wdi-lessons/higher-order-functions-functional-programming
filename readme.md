@@ -167,7 +167,7 @@ var naysayers = [
 ]
 
 naysayers.filter(function(naysayer){
-  return naysayer.age > 320;
+  return naysayer.age > 300;
 })
 ```
 
@@ -177,7 +177,7 @@ Much nicer than...
 var ancient = [];
 
 for(var i =0; i < naysayers.length; i++) {
-  if(naysayers[i].age > 320) {
+  if(naysayers[i].age > 300) {
     ancient.push(naysayers[i])
   }
 }
