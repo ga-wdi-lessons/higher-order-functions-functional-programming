@@ -4,14 +4,14 @@
 
 - Explain the idea of programming paradigms
 - Highlight advantages of functional programming
-- Identify the benefits of pure functions 
+- Identify the benefits of pure functions
 - Define the concepts of state and immutability
 - Explain the benefits of higher order functions
 - Implement `filter`, `map`, `reduce`, `sort` and other higher order functions
 
 ## Framing (5 minutes)
 
-Programming at it's most basic level is the process developers undergo to instruct a computer to perform a task. But there are a number of programmatic approaches that can be taken to enable your computer to solve a specific problem. We call these approaches **programming paradigms.**
+Programming at its most basic level is the process developers undergo to instruct a computer to perform a task. But there are a number of programmatic approaches that can be taken to enable your computer to solve a specific problem. We call these approaches **programming paradigms.**
 
 So far in WDI, we've largely relied on the *procedural programming* paradigm, which is the notion of writing a series of step-by-step instructions for your computer to carry out. For example, we wrote out every `console.log()` or `alert()` message we wanted to appear based on what our user would input as a response in "Choose You Own Adventure".
 
