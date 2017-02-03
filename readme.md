@@ -100,7 +100,7 @@ const person = Object.freeze({
   age: 13
 });
 
-person.name = 'Andy';
+person.name = 'Erik';
 //will cause error
 ```
 This method is only superficially immutable.
@@ -111,7 +111,7 @@ const person = Object.freeze({
   age: 13
 });
 
-person.name.first = 'Andy';
+person.name.first = 'Erik';
 ```
 But there are Javascript libraries, such as [Immutable.js](https://facebook.github.io/immutable-js/), that can be used for deep freezing.
 
