@@ -111,7 +111,7 @@ const person = Object.freeze({
   age: 13
 });
 
-instructor.name.first = 'Erik';
+person.name.first = 'Erik';
 ```
 But there are Javascript libraries, such as [Immutable.js](https://facebook.github.io/immutable-js/), that can be used for deep freezing.
 
