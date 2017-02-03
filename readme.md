@@ -40,7 +40,7 @@ Functional programming is characterized by **pure functions** and **function com
 
 ***Huh?***
 
-Trying to understand the terminology associated with functional programming can be incredibly daunting. In the scope of this class, we're not going to go too in the weeds with the concepts, but we'll have initial exposure.
+Trying to understand the terminology associated with functional programming can be incredibly daunting. In the scope of this class, we're not going to go too in the weeds with the concepts, but we'll have initial exposure to them.
 
 **Pure Functions**
 
