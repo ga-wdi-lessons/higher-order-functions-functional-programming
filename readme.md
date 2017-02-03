@@ -174,7 +174,7 @@ naysayers.filter(function(naysayer){
 })
 ```
 
-Much nice than...
+Much nicer than...
 
 ```js
 var age320 = [];
@@ -211,5 +211,4 @@ After one hour, pairs will be called at random to give a 5-minute presentation o
 - [Don't Be Scared of Functional Programming](https://www.smashingmagazine.com/2014/07/dont-be-scared-of-functional-programming/)
 - [Eloquent Javascript](http://eloquentjavascript.net/05_higher_order.html)
 - [Master the Javascript Interview](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0#.9u4dyrpyc)
-- [Functional Programming in Javascript](- [Functional Programming in Javascript](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0#.9u4dyrpyc)
-)
+- [Functional Programming in Javascript](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0#.9u4dyrpyc)
