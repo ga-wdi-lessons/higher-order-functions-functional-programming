@@ -176,11 +176,13 @@ Much nicer than...
 ```js
 var ancient = [];
 
-for(var i =0; i < naysayers.length; i++) {
+for(var i = 0; i < naysayers.length; i++) {
   if(naysayers[i].age > 300) {
     ancient.push(naysayers[i])
   }
 }
+
+console.log(ancient)
 ```
 
 ## Break (15 minutes)
@@ -199,7 +201,6 @@ You will be working in pairs. For each of these higher-order functions:
 1. [find](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
 1. [every](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)
 1. [some](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
-1. **Bonus** 
 
 After one hour, pairs will be called at random to give a 5-minute presentation on one of the above functions.
 
