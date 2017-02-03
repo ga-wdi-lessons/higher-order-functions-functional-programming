@@ -4,7 +4,7 @@
 
 - Explain the idea of programming paradigms
 - Highlight advantages of functional programming
-- Identify the benefits of pure functions and avoiding side effects
+- Identify the benefits of pure functions 
 - Define the concepts of state and immutability
 - Explain the benefits of higher order functions
 - Implement `filter`, `map`, `reduce`, `sort` and other higher order functions
