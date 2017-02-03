@@ -29,20 +29,30 @@ Functional programming has been called the [mustachioed hipster](https://www.sma
 
 [Javascript is cool now.](http://blog.salsitasoft.com/why-now/)
 
-When [Brendan Eich](http://blog.salsitasoft.com/why-now/) created Javascript for his then-employer Netscape, he was ordered by management to make the language look like Java. He obliged somewhat and gave Javascript some key functional programming features.
+When [Brendan Eich](http://blog.salsitasoft.com/why-now/) created Javascript for his then-employer Netscape, he was ordered by management to make the language look like Java. He obliged somewhat and gave Javascript some key functional programming features. As the language exploded in popularity, Javascript developers are now taking advantage of these features.
 
-### What is Functional Programming? (20 minutes)
+## What is Functional Programming? (15 minutes)
 
 Functional programming is characterized by **pure functions** and **function composition** and avoiding:
 * shared state
 * mutable data
 * side-effects
 
-*Huh?*
+_Huh?_
 
-Trying to understand the terminology associated with functional programming can be incredibly daunting. In the scope of this class, we're not going to go too in the weeds with the concepts, but we'll have initial exposure using fairly simple examples. 
+Trying to understand the terminology associated with functional programming can be incredibly daunting. In the scope of this class, we're not going to go too in the weeds with the concepts, but we'll have initial exposure.
 
-When we say __pure__ we mean a function, given the same inputs, will always return the same output.
+**Pure Functions**
+
+Pure functions are a fundamental part of functional programming.
+
+When we say __pure__ we mean a function, given the same inputs, will always return the same output. Such a function **does not** rely on or modify the **state** of variables outside it's scope.
+
+The execution of a pure function doesn't depend on the state of the system. That is, avoiding **shared state**.
+
+We also avoid the **side-effect** of modifying an external variable. As discussed earlier in the course, a side effect is an observable change in the application other than the return value of a called function.
+
+// What's an example of a side-effect we've commonly seen?
 
 Here's an example of an impure function:
 
@@ -65,7 +75,7 @@ increaseAgeBy(2)
   <pre>console.log(age)</pre>
 </details>
 
-We can make this function pure by not changing anything outside the function:
+We can make this function pure by not changing anything outside the function. Instead, we modify the parameter, which is in the scope of the function.
 
 ```js
 var age = 27
@@ -76,73 +86,130 @@ increaseAgeBy(2)
 // how can we demonstrate the purity here?
 ```
 
-
 ### Immutability
 
 In the above example, `collection` is a __mutable__ data structure. `Mutable`
 objects are objects whose state can be modified after creation.
 
 When working with pure functions, it is important to avoid changing (or mutating)
-objects outside of the function.
+objects outside of the function. Immutability, the idea of not changing data at all, is another core concept in functional programming because it allows you to change data flow.
 
-## Higher Order && First Class Functions
+Javascript has a method that will freeze an object one-level deep.
 
-JavaScript supports both!
+```js
 
-When we say JS supports first-class functions, we mean that they
-are treated as values. They can be assigned to a variable.
+const person = Object.freeze({
+  name: 'Nayana',
+  age: 13
+});
 
-Higher Order functions are functions that can take functions as arguments and/or
-return a function as output.
+person.name = 'Andy';
+//will cause error
+```
+This method is only superficially immutable.
+
+```js
+const person = Object.freeze({
+  name: { first: 'Nayana' },
+  age: 13
+});
+
+person.name.first = 'Andy';
+```
+But there are Javascript libraries, such as Immutable.js, that can be used for deep freezing.
+
+## Higher-Order Functions (15 minutes)
+
+How can we start implementing functional programming practices now?
+
+**Higher-Order Functions**
+
+These functions are considered to be another key area -- perhaps the most important -- in the functional programming paradigm.
+
+In functional programming languages, functions are values. That is, they can be stored in variables, or passed into other functions.
+
+Higher-order functions are functions that can take functions as arguments and/or return a function as output. They are good for **function composition.** That is, taking a function and putting it into another allows us to compose a lot of smaller functions into a bigger function.
+
+We've already seen an example of a higher-order function with `forEach`:
+
+```js
+var fruits = ["apples", "bananas", "cherries"];
+
+fruits.forEach(function(currentFruit) {
+  console.log("Every day I eat two " + currentFruit)
+});
+
+//vs
+
+for(var i = 0; i < fruits.length; i++) {
+  console.log("Every day I eat two " + fruits[i]);
+}
+```
 
 <details>
-  <summary>Anyone remember where we've seen one?</summary>
+  <summary>Anyone remember another one we've used quite frequently?</summary>
   <p>`.on('click')`</p>
 </details>
 
-You may have also seen with `forEach`:
-
-```js
-["a","b","c"].forEach((element, index) => {
-  console.log(`element ${element} is in position ${index}`)
-})
-```
-
 ## Examples of functions that take functions as arguments:
 
-### Sort
+### Filter
 
-The [`sort`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) method in JS takes a callback argument, specifying how to order the elements:
+ [`Filter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) is a method on an array that accepts another function as it’s argument, which it will then use to return a new filtered version of the array.
+
 
 ```js
-var people = [
-  {name: 'Jamie', age: 32},
-  {name: 'Jessica', age: 22},
-  {name: 'Jocelyn', age: 23}
+var naysayers = [
+  {name: 'Adam', age: 320},
+  {name: 'Jared', age: 222},
+  {name: 'Will', age: 187},
+  {name: 'Isaac', age: 320},
+  {name: 'Rodney', age: 423},
+  {name: 'Fiona', age: 320},
+  {name: 'Mike', age: 239}
 ]
-people.sort((person1, person2) => {
-  return person1.age - person2.age
+
+naysayers.filter(function(naysayer){
+  return naysayer.age === 320;
 })
 ```
 
-### You do: Teach Back
+Much nice than...
 
-Break up into groups of three:
+```js
+var age320 = [];
+
+for(var i =0; i < naysayers.length; i++) {
+  if(naysayers[i].age === 320) {
+    age320.push(naysayers[i])
+  }
+}
+```
+
+## Break (15 minutes)
+
+### You do: Teach Back (90 Minutes)
+
+You will be working in pairs. For each of these higher-order functions:
+
+1. Create an "explain it to me like i'm 5" explanation
+1. Create a codepen / jsfiddle demoing how it works
+1. Come up with a way to remember what it is and what it does
 
 1. [map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
 1. [reduce](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
-1. [filter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+1. [sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)
 1. [find](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
 1. [every](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)
 1. [some](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
 
-Once in your groups...
-
-1. Create an explain it to me like i'm 5 explanation
-1. Create a codepen / jsfiddle demoing how it works
-1. Come up with a way to remember what it is and what it does
+After one hour, pairs will be called at random to give a 5-minute presentation on one of the above functions.
 
 
 ## Resources
 
 - [Don't Be Scared of Functional Programming](https://www.smashingmagazine.com/2014/07/dont-be-scared-of-functional-programming/)
+- [Eloquent Javascript](http://eloquentjavascript.net/05_higher_order.html)
+- [Master the Javascript Interview](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0#.9u4dyrpyc)
+- [Functional Programming in Javascript](- [Functional Programming in Javascript](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0#.9u4dyrpyc)
+)
