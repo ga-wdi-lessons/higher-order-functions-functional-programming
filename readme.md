@@ -95,12 +95,12 @@ Javascript has a method that will freeze an object one-level deep.
 
 ```js
 
-const person = Object.freeze({
+const instructor = Object.freeze({
   name: 'Nayana',
   age: 13
 });
 
-person.name = 'Erik';
+instructor.name = 'Erik';
 //will cause error
 ```
 This method is only superficially immutable.
@@ -111,7 +111,7 @@ const person = Object.freeze({
   age: 13
 });
 
-person.name.first = 'Erik';
+instructor.name.first = 'Erik';
 ```
 But there are Javascript libraries, such as [Immutable.js](https://facebook.github.io/immutable-js/), that can be used for deep freezing.
 
