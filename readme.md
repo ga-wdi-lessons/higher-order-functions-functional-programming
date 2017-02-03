@@ -48,11 +48,11 @@ Pure functions are a fundamental part of functional programming.
 
 When we say __pure__ we mean a function, given the same inputs, will always return the same output. Such a function **does not** rely on or modify the **state** of variables outside it's scope.
 
-The execution of a pure function doesn't depend on the state of the system. That is, avoiding **shared state**.
+The execution of a pure function doesn't depend on the state of the system. That is, it avoids **shared state**.
 
 We also avoid the **side-effect** of modifying an external variable. As discussed earlier in the course, a side effect is an observable change in the application other than the return value of a called function.
 
-// What's an example of a side-effect we've commonly seen?
+* What's an example of a side-effect we've commonly seen?
 
 Here's an example of an impure function:
 
@@ -79,8 +79,8 @@ We can make this function pure by not changing anything outside the function. In
 
 ```js
 var age = 27
-function increaseAgeBy(age,int){
-  return age += int
+function increaseAgeBy(myAge,int){
+  return myAge += int
 }
 increaseAgeBy(age, 2)
 // how can we demonstrate the purity here?
@@ -167,18 +167,18 @@ var naysayers = [
 ]
 
 naysayers.filter(function(naysayer){
-  return naysayer.age === 320;
+  return naysayer.age > 320;
 })
 ```
 
 Much nicer than...
 
 ```js
-var age320 = [];
+var ancient = [];
 
 for(var i =0; i < naysayers.length; i++) {
-  if(naysayers[i].age === 320) {
-    age320.push(naysayers[i])
+  if(naysayers[i].age > 320) {
+    ancient.push(naysayers[i])
   }
 }
 ```
@@ -199,6 +199,7 @@ You will be working in pairs. For each of these higher-order functions:
 1. [find](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
 1. [every](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)
 1. [some](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
+1. **Bonus** 
 
 After one hour, pairs will be called at random to give a 5-minute presentation on one of the above functions.
 
@@ -209,3 +210,4 @@ After one hour, pairs will be called at random to give a 5-minute presentation o
 - [Eloquent Javascript](http://eloquentjavascript.net/05_higher_order.html)
 - [Master the Javascript Interview](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0#.9u4dyrpyc)
 - [Functional Programming in Javascript](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0#.9u4dyrpyc)
+- [Introducing Reduce: Common Patterns](https://egghead.io/lessons/javascript-introducing-reduce-common-patterns)
