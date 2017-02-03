@@ -188,13 +188,13 @@ for(var i =0; i < naysayers.length; i++) {
 
 ## Break (15 minutes)
 
-### You do: Teach Back (90 Minutes)
+## You do: Teach Back (90 Minutes)
 
 You will be working in pairs. For each of these higher-order functions:
 
-1. Create an "explain it to me like i'm 5" explanation
-1. Create a codepen / jsfiddle demoing how it works
-1. Come up with a way to remember what it is and what it does
+- Create an "explain it to me like i'm 5" explanation
+- Create a codepen / jsfiddle demoing how it works
+- Come up with a way to remember what it is and what it does
 
 1. [map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
 1. [reduce](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
