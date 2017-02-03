@@ -1,64 +1,58 @@
-# Functional Programming
-
-#### Please Clone this Repository Locally
+# Functional Programming & Higher-Order Functions
 
 ## Learning Objectives
 
-- Identify the benefits of pure functions and avoiding side effects
-- Define immutability and how it relates to pure functions
-- Explain what recursion is and why we use it
-- Explain the concepts of first class and higher order functions
-- Use `filter`, `map`, `reduce`, `sort`
+- Explain the idea of programming paradigms
+- Highlight advantages of functional programming
+- Identify the benefits of pure functions
+- Define the concepts of state and immutability
+- Explain the benefits of higher order functions
+- Implement `filter`, `map`, `reduce`, `sort` and other higher order functions
 
-## Framing
+## Framing (5 minutes)
 
-### Why functional programming? Why now?
+Programming at its most basic level is the process developers undergo to instruct a computer to perform a task. But there are a number of programmatic approaches that can be taken to enable your computer to solve a specific problem. We call these approaches **programming paradigms.**
 
-We started with __imperative__ programming: `First do this and then do that`
+So far in WDI, we've largely relied on the *procedural programming* paradigm, which is the notion of writing a series of step-by-step instructions for your computer to carry out. For example, we wrote out every `console.log()` or `alert()` message we wanted to appear based on what our user would input as a response in "Choose You Own Adventure".
 
-Imperative programming reminds me of Christmas Lights. One goes out and the whole
-thing's broken. How do you know which one is the culprit? How is this related to imperative
-programming?
+Most recently, we dipped our toes into the **object-oriented programming** paradigm. This design pattern allows us to considerably DRY up our code to achieve ***abstraction***, ***encapsulation*** and ***modularity***.
 
-Then we moved on to __object oriented__ programming. This made it easier to:
+Let's look at another programming paradigm...
 
-- abstract
-  - hide the complexity
-- encapsulate
-  - privatizing the complexity
-- inherit
-  - sharing the complexity
+## Why Functional Programming? (10 minutes)
 
-Object oriented programming reminds me of an LCD display. If one pixel goes out,
-no problem. It doesn't affect the rest of the system. It's easy to identify where
-something's broken.
+Functional programming has been called the [mustachioed hipster](https://www.smashingmagazine.com/2014/07/dont-be-scared-of-functional-programming/) of the programming paradigms. But it's far from being a new concept. Lisp, one of the first programming languages ever created -- back in the 1950s -- had already embraced the paradigm.
 
->The problem with object-oriented languages is they’ve got all this implicit environment that they carry around with them. You wanted a banana but what you got was a gorilla holding the banana and the entire jungle. — Joe Armstrong
+[Ardent fans](https://www.youtube.com/watch?v=BMUiFMZr7vk&t=1s) have lauded functional programming for its emphasis on writing programs that will result in fewer bugs and more reusable code. The paradigm has historically been used with high-scale systems spanning thousands of networked computers, where it's critical that the program do exactly what's expected every time in the interest of performance and integrity. Many shied away from it, however, because "pure" functional languages are challenging to grasp and the paradigm was perceived as too "computer science-y" and academic.
 
->I’ll never forget that day when I was ready to cash in on the promise of Reuse by inheriting from an existing class. This was the moment I had been waiting for.
-A new project came along and I thought back to that Class that I was so fond of in my last project.
-No problem. Reuse to the rescue. All I gotta do is simply grab that Class from the other project and use it.
-Well… actually… not just that Class. We’re gonna need the parent Class. But… But that’s it.
-Ugh… Wait… Looks like we gonna also need the parent’s parent too... And then… We’re going to need ALL of the parents. Okay… Okay… I handle this. No problem.
-And great. Now it won’t compile. Why?? Oh, I see… This object contains this other object. So I’m gonna need that too. No problem.
-Wait… I don’t just need that object. I need the object’s parent and its parent’s parent and so on and so on with every contained object and ALL the parents of what those contain along with their parent’s, parent’s, parent’s…
+***So why is functional programming seeing a resurgence?***
 
-- https://medium.com/@cscalfani/goodbye-object-oriented-programming-a59cda4c0e53#.rmqoman2q
+[Javascript is cool now.](http://blog.salsitasoft.com/why-now/)
 
-Let's look at another programming paradigm, __functional programming__.
+When [Brendan Eich](http://blog.salsitasoft.com/why-now/) created Javascript for his then-employer Netscape, he was ordered by management to make the language look like Java. He obliged somewhat and gave Javascript some key functional programming features. As the language exploded in popularity, Javascript developers are now taking advantage of these features.
 
-Functional programming is characterized by:
+## What is Functional Programming? (15 minutes)
 
-- Pure functions without side effects
-- Avoiding changing state and mutable data
+Functional programming is characterized by **pure functions** and **function composition** and avoiding:
+* shared state
+* mutable data
+* side-effects
 
-## Pure Functions (stateless)
+***Huh?***
 
->In mathematics, a function is a relation between a set of inputs and a set of permissible outputs with the property that each input is related to exactly one output. 
+Trying to understand the terminology associated with functional programming can be incredibly daunting. In the scope of this class, we're not going to go too in the weeds with the concepts, but we'll have initial exposure.
 
-<https://en.wikipedia.org/wiki/Function_(mathematics)>
+**Pure Functions**
 
-When we say __pure__ we mean a function, given the same inputs, will always return the same output.
+Pure functions are a fundamental part of functional programming.
+
+When we say __pure__ we mean a function, given the same inputs, will always return the same output. Such a function **does not** rely on or modify the **state** of variables outside it's scope.
+
+The execution of a pure function doesn't depend on the state of the system. That is, it avoids **shared state**.
+
+We also avoid the **side-effect** of modifying an external variable. As discussed earlier in the course, a side effect is an observable change in the application other than the return value of a called function.
+
+* What's an example of a side-effect we've commonly seen?
 
 Here's an example of an impure function:
 
@@ -81,188 +75,139 @@ increaseAgeBy(2)
   <pre>console.log(age)</pre>
 </details>
 
-We can make this function pure by not changing anything outside the function:
+We can make this function pure by not changing anything outside the function. Instead, we modify the parameter, which is in the scope of the function.
 
 ```js
 var age = 27
-function increaseAgeBy(age,int){
-  return age += int
+function increaseAgeBy(myAge,int){
+  return myAge += int
 }
-increaseAgeBy(2)
+increaseAgeBy(age, 2)
 // how can we demonstrate the purity here?
 ```
 
-### You do: Purify the function
-
-[Purify the Function](./01-purify-the-function.html)
-
 ### Immutability
 
-In the above example, `collection` is a __mutable__ data structure. `Mutable`
-objects are objects whose state can be modified after creation.
-
 When working with pure functions, it is important to avoid changing (or mutating)
-objects outside of the function.
+objects outside of the function. Immutability, the idea of not changing data at all, is another core concept in functional programming because it allows you to control data flow.
 
-## Higher Order && First Class Functions
+Javascript has a method that will freeze an object one-level deep.
 
-JavaScript supports both!
+```js
 
-When we say JS supports first-class functions, we mean that they
-are treated as values. They can be assigned to a variable.
+const person = Object.freeze({
+  name: 'Nayana',
+  age: 13
+});
 
-Higher Order functions are functions that can take functions as arguments and/or
-return a function as output.
+person.name = 'Andy';
+//will cause error
+```
+This method is only superficially immutable.
+
+```js
+const person = Object.freeze({
+  name: { first: 'Nayana' },
+  age: 13
+});
+
+person.name.first = 'Andy';
+```
+But there are Javascript libraries, such as [Immutable.js](https://facebook.github.io/immutable-js/), that can be used for deep freezing.
+
+## Higher-Order Functions (15 minutes)
+
+How can we start implementing functional programming practices now?
+
+**Higher-Order Functions**
+
+These functions are considered to be another key area -- perhaps the most important -- in the functional programming paradigm.
+
+In functional programming languages, functions are values. That is, they can be stored in variables, or passed into other functions.
+
+Higher-order functions are functions that can take functions as arguments and/or return a function as output. They are good for **function composition.** That is, taking a function and putting it into another allows us to compose a lot of smaller functions into a bigger function.
+
+We've already seen an example of a higher-order function with `forEach`:
+
+```js
+var fruits = ["apples", "bananas", "cherries"];
+
+fruits.forEach(function(currentFruit) {
+  console.log("Every day I eat two " + currentFruit)
+});
+
+//vs
+
+for(var i = 0; i < fruits.length; i++) {
+  console.log("Every day I eat two " + fruits[i]);
+}
+```
 
 <details>
-  <summary>Anyone remember where we've seen one?</summary>
+  <summary>Anyone remember another one we've used quite frequently?</summary>
   <p>`.on('click')`</p>
 </details>
 
-You may have also seen with `forEach`:
-
-```js
-["a","b","c"].forEach((element, index) => {
-  console.log(`element ${element} is in position ${index}`)
-})
-```
-
 ## Examples of functions that take functions as arguments:
 
-### Sort
+### Filter
 
-The [`sort`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) method in JS takes a callback argument, specifying how to order the elements:
+ [`Filter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) is a method on an array that accepts another function as it’s argument, which it will then use to return a new filtered version of the array.
+
 
 ```js
-var people = [
-  {name: 'Jamie', age: 32},
-  {name: 'Jessica', age: 22},
-  {name: 'Jocelyn', age: 23}
+var naysayers = [
+  {name: 'Adam', age: 320},
+  {name: 'Jared', age: 222},
+  {name: 'Will', age: 187},
+  {name: 'Isaac', age: 320},
+  {name: 'Rodney', age: 423},
+  {name: 'Fiona', age: 320},
+  {name: 'Mike', age: 239}
 ]
-people.sort((person1, person2) => {
-  return person1.age - person2.age
+
+naysayers.filter(function(naysayer){
+  return naysayer.age > 320;
 })
 ```
 
-### You do: Teach Back
+Much nicer than...
 
-Break up into groups of three:
+```js
+var ancient = [];
+
+for(var i =0; i < naysayers.length; i++) {
+  if(naysayers[i].age > 320) {
+    ancient.push(naysayers[i])
+  }
+}
+```
+
+## Break (15 minutes)
+
+## You do: Teach Back (90 Minutes)
+
+You will be working in pairs. For each of these higher-order functions:
+
+- Create an "explain it to me like i'm 5" explanation
+- Create a codepen / jsfiddle demoing how it works
+- Come up with a way to remember what it is and what it does
 
 1. [map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
 1. [reduce](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
-1. [filter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+1. [sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)
 1. [find](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
 1. [every](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)
 1. [some](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
+1. **Bonus** 
 
-Once in your groups...
-
-1. Create an explain it to me like i'm 5 explanation
-1. Create a codepen / jsfiddle demoing how it works
-1. Come up with a way to remember what it is and what it does
-
-## Recursion
-
-<http://lmgtfy.com/?q=recursion>
-
-Recursion is when a function calls itself.
-
-Here's an infinite example:
-
-__Running this code in a browser will freeze your page__
-
-```js
-function loop(){
-  loop()
-}
-loop()
-```
-
-The Fibonacci sequence is a classic example of recursion.
-
-The fibonacci numbers of `n` are the fibonacci numbers of `n - 1` + the
-fibonacci numbers of `n - 2`,
-where the fibonacci numbers of `1` and `2` are both 1.
-
-```
-3: 1 + 1  = 2
-4: 1 + 2  = 3
-5: 2 + 3  = 5
-6: 3 + 5  = 8
-7: 5 + 8  = 13
-```
-
-```js
-function fib(n){
-  if(n === 1 || n === 2){
-    return 1
-  }
-  return fib(n-1) + fib(n-2)
-}
-```
-
-### You do: Factorial
-
-<https://en.wikipedia.org/wiki/Factorial>
-
-[Factorial](./02-factorial.html)
-
-### Loops can be replaced with recursion
-
-Let's count:
-
-```js
-function countUpTo(n, current = 0){
-  console.log(current)
-  if(current === n) return
-  countUpTo(n,++current)
-}
-
-countUpTo(10)
-```
+After one hour, pairs will be called at random to give a 5-minute presentation on one of the above functions.
 
 
-### You do: count down
+## Resources
 
-[Count Down From](./03-count-down-from.html)
-
-### You do: FizzBuzz without loops!
-
-Bonus: Complete this exercise without loops or conditionals.
-
-## Addendum w/r/t the DOM
-
-Functional principles can be applied to the DOM as well.
-
-Instead of creating objects with `render` methods, you have many functions
-responsible for generating small amounts of html.
-
-Here's a sample nav menu:
-
-```js
-document.body.appendChild(ul(
-  li(a('Home','/')),
-  li(a('About','/about')),
-  li(a('Contact Us','/contact'))
-))
-
-function ul(...children){
-  console.log(children)
-  var el = document.createElement('ul')
-  for(var i = 0; i < children.length; i++){
-    el.appendChild(children[i])
-  }
-  return el
-}
-function li(child){
-  var el = document.createElement('li')
-  el.appendChild(child)
-  return el
-}
-function a(text,href){
-  var anchor = document.createElement("a")
-  anchor.innerHTML = text
-  anchor.href = href
-  return anchor
-}
-```
+- [Don't Be Scared of Functional Programming](https://www.smashingmagazine.com/2014/07/dont-be-scared-of-functional-programming/)
+- [Eloquent Javascript](http://eloquentjavascript.net/05_higher_order.html)
+- [Master the Javascript Interview](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0#.9u4dyrpyc)
+- [Functional Programming in Javascript](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0#.9u4dyrpyc)
+- [Introducing Reduce: Common Patterns](https://egghead.io/lessons/javascript-introducing-reduce-common-patterns)
