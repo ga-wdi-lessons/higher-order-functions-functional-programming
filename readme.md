@@ -88,11 +88,8 @@ increaseAgeBy(age, 2)
 
 ### Immutability
 
-In the above example, `collection` is a __mutable__ data structure. `Mutable`
-objects are objects whose state can be modified after creation.
-
 When working with pure functions, it is important to avoid changing (or mutating)
-objects outside of the function. Immutability, the idea of not changing data at all, is another core concept in functional programming because it allows you to change data flow.
+objects outside of the function. Immutability, the idea of not changing data at all, is another core concept in functional programming because it allows you to control data flow.
 
 Javascript has a method that will freeze an object one-level deep.
 
