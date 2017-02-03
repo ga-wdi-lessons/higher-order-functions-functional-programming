@@ -1,4 +1,4 @@
-# Functional Programming
+# Higher-Order Functions
 
 #### Please Clone this Repository Locally
 
@@ -12,49 +12,19 @@
 
 ## Framing
 
-### Why functional programming? Why now?
+Programming at it's most basic level is the process developers undergo to instruct a computer to perform a task. But there are a number of programmatic approaches that can be taken to enable your computer to solve a specific problem. We call these approaches **programming paradigms.**
 
-We started with __imperative__ programming: `First do this and then do that`
+So far in WDI, we've largely relied on the *procedural programming* paradigm, which is the notion of writing a series of step-by-step instructions for your computer to carry out. For example, we wrote out every `console.log()` or `alert()` message we wanted to appear based on what our user would input as a response in "Choose You Own Adventure".
 
-Imperative programming reminds me of Christmas Lights. One goes out and the whole
-thing's broken. How do you know which one is the culprit? How is this related to imperative
-programming?
-
-Then we moved on to __object oriented__ programming. This made it easier to:
-
-- abstract
-  - hide the complexity
-- encapsulate
-  - privatizing the complexity
-- inherit
-  - sharing the complexity
-
-Object oriented programming reminds me of an LCD display. If one pixel goes out,
-no problem. It doesn't affect the rest of the system. It's easy to identify where
-something's broken.
-
->The problem with object-oriented languages is they’ve got all this implicit environment that they carry around with them. You wanted a banana but what you got was a gorilla holding the banana and the entire jungle. — Joe Armstrong
-
->I’ll never forget that day when I was ready to cash in on the promise of Reuse by inheriting from an existing class. This was the moment I had been waiting for.
-A new project came along and I thought back to that Class that I was so fond of in my last project.
-No problem. Reuse to the rescue. All I gotta do is simply grab that Class from the other project and use it.
-Well… actually… not just that Class. We’re gonna need the parent Class. But… But that’s it.
-Ugh… Wait… Looks like we gonna also need the parent’s parent too... And then… We’re going to need ALL of the parents. Okay… Okay… I handle this. No problem.
-And great. Now it won’t compile. Why?? Oh, I see… This object contains this other object. So I’m gonna need that too. No problem.
-Wait… I don’t just need that object. I need the object’s parent and its parent’s parent and so on and so on with every contained object and ALL the parents of what those contain along with their parent’s, parent’s, parent’s…
-
-- https://medium.com/@cscalfani/goodbye-object-oriented-programming-a59cda4c0e53#.rmqoman2q
+Most recently, we dipped our toes into the **object-oriented programming** paradigm. This design pattern allows us to considerably DRY up our code to achieve *abstraction*, *encapsulation* and *modularity*.
 
 Let's look at another programming paradigm, __functional programming__.
 
-Functional programming is characterized by:
+Functional programming is characterized by **pure functions**, which avoid *changing state*, *mutable data* and *side-effects.*
 
-- Pure functions without side effects
-- Avoiding changing state and mutable data
+## Let's Break it Down...
 
-## Pure Functions (stateless)
-
->In mathematics, a function is a relation between a set of inputs and a set of permissible outputs with the property that each input is related to exactly one output. 
+>In mathematics, a function is a relation between a set of inputs and a set of permissible outputs with the property that each input is related to exactly one output.
 
 <https://en.wikipedia.org/wiki/Function_(mathematics)>
 
@@ -225,10 +195,6 @@ countUpTo(10)
 ### You do: count down
 
 [Count Down From](./03-count-down-from.html)
-
-### You do: FizzBuzz without loops!
-
-Bonus: Complete this exercise without loops or conditionals.
 
 ## Addendum w/r/t the DOM
 
