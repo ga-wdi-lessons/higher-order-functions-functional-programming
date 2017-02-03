@@ -82,7 +82,7 @@ var age = 27
 function increaseAgeBy(age,int){
   return age += int
 }
-increaseAgeBy(2)
+increaseAgeBy(age, 2)
 // how can we demonstrate the purity here?
 ```
 
