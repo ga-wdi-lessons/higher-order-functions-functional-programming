@@ -113,7 +113,7 @@ const person = Object.freeze({
 
 person.name.first = 'Andy';
 ```
-But there are Javascript libraries, such as Immutable.js, that can be used for deep freezing.
+But there are Javascript libraries, such as [Immutable.js](https://facebook.github.io/immutable-js/), that can be used for deep freezing.
 
 ## Higher-Order Functions (15 minutes)
 
