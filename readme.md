@@ -75,6 +75,7 @@ increaseAgeBy(2)
   <pre>console.log(age)</pre>
 </details>
 
+
 We can make this function pure by not changing anything outside the function. Instead, we modify the parameter, which is in the scope of the function.
 
 ```js
@@ -91,29 +92,53 @@ increaseAgeBy(age, 2)
 When working with pure functions, it is important to avoid changing (or mutating)
 objects outside of the function. Immutability, the idea of not changing data at all, is another core concept in functional programming because it allows you to control data flow.
 
-Javascript has a method that will freeze an object one-level deep.
+Why does the example below violate this concept of Immutability?
 
 ```js
-
-const instructor = Object.freeze({
+let instructor = Object.freeze({
   name: 'Nayana',
   age: 13
 });
 
-instructor.name = 'Erik';
-//will cause error
+instructor.name = "Andy"
 ```
-This method is only superficially immutable.
-
+If we wanted to make this change without violating Immutability, we could create a function to do this update:
 ```js
-const person = Object.freeze({
-  name: { first: 'Nayana' },
+let instructor = Object.freeze({
+  name: 'Nayana',
   age: 13
 });
 
-person.name.first = 'Erik';
+function updateName(instructor, newName) {
+  let newInstructor = Object.assign({}, instructor)
+  newInstructor.name = newName
+  return newInstructor
+}
+
+instructor = updateName(instructor, "Andy")
 ```
-But there are Javascript libraries, such as [Immutable.js](https://facebook.github.io/immutable-js/), that can be used for deep freezing.
+> Object.assign() is the simplest way to make a copy of an existing object
+
+This example does not violate immutability because the original object (`instructor`) is not directly mutated. Instead, a copy of that object is created, then mutated, and finally returned. The original *pointer* to that object is then reassigned to the newly created object. This is advantageous because JavaScript is inherently *asynchronous* (meaning, at times, we may not know when code will be executed).
+
+This way, if there are many parts of our code that reference the same object, the original object will still be available in memory (for example, the definition of `clone` below will stay unmodified.)
+
+```js
+let instructor = Object.freeze({
+  name: 'Nayana',
+  age: 13
+});
+
+function updateName(instructor, newName) {
+  let newInstructor = Object.assign({}, instructor)
+  newInstructor.name = newName
+  return newInstructor
+}
+
+let clone = instructor
+
+instructor = updateName(instructor, "Andy")
+```
 
 ## Higher-Order Functions (15 minutes)
 
@@ -204,6 +229,21 @@ You will be working in pairs. For each of these higher-order functions:
 
 After one hour, pairs will be called at random to give a 5-minute presentation on one of the above functions.
 
+## Bonus: Recursion
+
+Recursion is when a function calls itself within it's own scope. It is a more advanced, functional way to iterate over data (as opposed to utilizing a loop or higher-order function). In certain circumstances, it can be much more *perfomant* (faster). Below is an example of using recursion to reverse a string:
+
+```js
+function reverse (str) {
+    if (str.length == 0) {
+        return "";
+    } else {
+        return reverse(str.substr(1)) + str.charAt(0);
+    }
+}
+```
+
+## Closing / Questions
 
 ## Resources
 
