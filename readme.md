@@ -95,19 +95,20 @@ objects outside of the function. Immutability, the idea of not changing data at 
 Why does the example below violate this concept of Immutability?
 
 ```js
-let instructor = Object.freeze({
+let instructor = {
   name: 'Nayana',
   age: 13
-});
+}
 
 instructor.name = "Andy"
 ```
 If we wanted to make this change without violating Immutability, we could create a function to do this update:
+
 ```js
-let instructor = Object.freeze({
+let instructor = {
   name: 'Nayana',
   age: 13
-});
+}
 
 function updateName(instructor, newName) {
   let newInstructor = Object.assign({}, instructor)
@@ -231,7 +232,7 @@ After one hour, pairs will be called at random to give a 5-minute presentation o
 
 ## Bonus: Recursion
 
-Recursion is when a function calls itself within it's own scope. It is a more advanced, functional way to iterate over data (as opposed to utilizing a loop or higher-order function). In certain circumstances, it can be much more *perfomant* (faster). Below is an example of using recursion to reverse a string:
+Recursion is when a function calls itself within it's own scope. It is a more advanced, functional way to iterate over data or to repeat an operation an arbitrary number of times (as opposed to utilizing a loop or higher-order function). In certain circumstances, it can be much more *perfomant* (faster). Below is an example of using recursion to reverse a string:
 
 ```js
 function reverse (str) {
@@ -242,6 +243,26 @@ function reverse (str) {
     }
 }
 ```
+
+We could similarly do FizzBuzz recursively:
+
+```js
+function fizzBuzz(int, current = 1) {
+  if(current == int) {
+    return
+  } else if (current % 3 == 0 && current % 5 == 0) {
+    console.log('fizzbuzz')
+  } else if (current % 5 == 0) {
+    console.log('buzz')
+  } else if(current % 3 == 0) {
+    console.log('fizz')
+  } else {
+    console.log(current)
+  }
+  fizzBuzz(int, current + 1)
+}
+```
+> Note that optional parameters are often used with recursion as they allow us to start a local variable at a certain value without having to set the value of it *within* the function body.
 
 ## Closing / Questions
 
