@@ -57,7 +57,7 @@ We also avoid the **side-effect** of modifying an external variable. As discusse
 Here's an example of an impure function:
 
 ```js
-var age = 27
+let age = 27
 function increaseAgeBy(int){
   return age += int
 }
@@ -79,13 +79,16 @@ increaseAgeBy(2)
 We can make this function pure by not changing anything outside the function. Instead, we modify the parameter, which is in the scope of the function.
 
 ```js
-var age = 27
+let age = 27
 function increaseAgeBy(myAge,int){
   return myAge += int
 }
 increaseAgeBy(age, 2)
-// how can we demonstrate the purity here?
 ```
+<details>
+  <summary>How can you demonstrate the purity?</summary>
+  <pre>console.log(age)</pre>
+</details>
 
 ### Immutability
 
@@ -95,17 +98,17 @@ objects outside of the function. Immutability, the idea of not changing data at 
 Why does the example below violate this concept of Immutability?
 
 ```js
-let instructor = {
+let nayana = {
   name: 'Nayana',
   age: 13
 }
 
 instructor.name = "Andy"
 ```
-If we wanted to make this change without violating Immutability, we could create a function to do this update:
+If we wanted to make this change without violating Immutability, we could create a function that would return a **new** and **separate** version of `nayana` without modifying `nayana` directly:
 
 ```js
-let instructor = {
+let nayana = {
   name: 'Nayana',
   age: 13
 }
@@ -116,30 +119,12 @@ function updateName(instructor, newName) {
   return newInstructor
 }
 
-instructor = updateName(instructor, "Andy")
+let andy = updateName(nayana, "Andy")
 ```
 > Object.assign() is the simplest way to make a copy of an existing object
 
-This example does not violate immutability because the original object (`instructor`) is not directly mutated. Instead, a copy of that object is created, then mutated, and finally returned. The original *pointer* to that object is then reassigned to the newly created object. This is advantageous because JavaScript is inherently *asynchronous* (meaning, at times, we may not know when code will be executed).
+This example does not violate immutability because the original object (`nayana`) is not directly mutated. Instead, a copy of that object is created, then mutated, and finally returned. This way, the original object `nayana` is still accessible with its original values.
 
-This way, if there are many parts of our code that reference the same object, the original object will still be available in memory (for example, the definition of `clone` below will stay unmodified.)
-
-```js
-let instructor = Object.freeze({
-  name: 'Nayana',
-  age: 13
-});
-
-function updateName(instructor, newName) {
-  let newInstructor = Object.assign({}, instructor)
-  newInstructor.name = newName
-  return newInstructor
-}
-
-let clone = instructor
-
-instructor = updateName(instructor, "Andy")
-```
 
 ## Higher-Order Functions (15 minutes)
 
@@ -156,15 +141,15 @@ Higher-order functions are functions that can take functions as arguments and/or
 We've already seen an example of a higher-order function with `forEach`:
 
 ```js
-var fruits = ["apples", "bananas", "cherries"];
+let fruits = ["apples", "bananas", "cherries"];
 
-fruits.forEach(function(currentFruit) {
+fruits.forEach((currentFruit) => {
   console.log("Every day I eat two " + currentFruit)
 });
 
 //vs
 
-for(var i = 0; i < fruits.length; i++) {
+for(let i = 0; i < fruits.length; i++) {
   console.log("Every day I eat two " + fruits[i]);
 }
 ```
@@ -182,7 +167,7 @@ for(var i = 0; i < fruits.length; i++) {
 
 
 ```js
-var naysayers = [
+let naysayers = [
   {name: 'Adam', age: 320},
   {name: 'Jared', age: 222},
   {name: 'Will', age: 187},
@@ -192,7 +177,7 @@ var naysayers = [
   {name: 'Mike', age: 239}
 ]
 
-naysayers.filter(function(naysayer){
+let ancient = naysayers.filter((naysayer) => {
   return naysayer.age > 300;
 })
 ```
@@ -200,15 +185,13 @@ naysayers.filter(function(naysayer){
 Much nicer than...
 
 ```js
-var ancient = [];
+let ancient = [];
 
-for(var i = 0; i < naysayers.length; i++) {
+for(let i = 0; i < naysayers.length; i++) {
   if(naysayers[i].age > 300) {
     ancient.push(naysayers[i])
   }
 }
-
-console.log(ancient)
 ```
 
 ## Break (15 minutes)
