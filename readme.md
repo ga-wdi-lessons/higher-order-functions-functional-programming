@@ -21,15 +21,15 @@ Let's look at another programming paradigm...
 
 ## Why Functional Programming? (10 minutes)
 
-Functional programming has been called the [mustachioed hipster](https://www.smashingmagazine.com/2014/07/dont-be-scared-of-functional-programming/) of the programming paradigms. But it's far from being a new concept. Lisp, one of the first programming languages ever created -- back in the 1950s -- had already embraced the paradigm.
+Functional programming is a [hot and trendy topic](https://www.smashingmagazine.com/2014/07/dont-be-scared-of-functional-programming/) in web development right now, but it's far from being a new concept. LISP, one of the first programming languages ever created -- back in the 1950s -- had already embraced the paradigm, and has its foundations in [Alonzo Church](https://en.wikipedia.org/wiki/Alonzo_Church)'s work in [lambda calculus](https://en.wikipedia.org/wiki/Lambda_calculus) in 1930s, which very strongly influenced the development of LISP.
 
 [Ardent fans](https://www.youtube.com/watch?v=BMUiFMZr7vk&t=1s) have lauded functional programming for its emphasis on writing programs that will result in fewer bugs and more reusable code. The paradigm has historically been used with high-scale systems spanning thousands of networked computers, where it's critical that the program do exactly what's expected every time in the interest of performance and integrity. Many shied away from it, however, because "pure" functional languages are challenging to grasp and the paradigm was perceived as too "computer science-y" and academic.
 
 ***So why is functional programming seeing a resurgence?***
 
-[Javascript is cool now.](http://blog.salsitasoft.com/why-now/)
+[Javascript is cool now](http://blog.salsitasoft.com/why-now/) and more developers than ever are writing Javascript, and technologies like React and Redux make extensive use of core concepts of functional programming, and derive their power and unique features from functional programming principles.
 
-When [Brendan Eich](http://blog.salsitasoft.com/why-now/) created Javascript for his then-employer Netscape, he was ordered by management to make the language look like Java. He obliged somewhat and gave Javascript some key functional programming features. As the language exploded in popularity, Javascript developers are now taking advantage of these features.
+When [Brendan Eich](http://blog.salsitasoft.com/why-now/) created Javascript for his then-employer Netscape, he was ordered by management to make the language look like Java. He obliged somewhat and gave Javascript some key functional programming features. As the language exploded in popularity, Javascript developers are now taking advantage of these features and extending them with new techniques made available by ES6.
 
 ## What is Functional Programming? (15 minutes)
 
@@ -46,11 +46,25 @@ Trying to understand the terminology associated with functional programming can 
 
 Pure functions are a fundamental part of functional programming.
 
-When we say __pure__ we mean a function, given the same inputs, will always return the same output. Such a function **does not** rely on or modify the **state** of variables outside it's scope.
+When we say __pure__ we mean a function, *given the same inputs, will always return the same output*. Such a function **does not** rely on or modify the **state** of variables outside it's scope. With object-oriented programming we have stateful objects that encapsulate our data. However, in functional programming, we could encapsulate the same data in functions instead of objects. By avoiding stateful objects, each with an individual state, we could pass this data into functions as arguments.
 
-The execution of a pure function doesn't depend on the state of the system. That is, it avoids **shared state**.
+```js
+//object-oriented approach
+class Sum {
+  constructor(addend, augend){
+    this.value = addend + augend
+  }
+}
 
-We also avoid the **side-effect** of modifying an external variable. As discussed earlier in the course, a side effect is an observable change in the application other than the return value of a called function.
+//functional approach
+const sum = (addend, augend) => addend + augend
+```
+
+We don't live in a black-and-white world, and functional programming is well-suited some things, and object oriented for others.
+
+The execution of a pure function doesn't depend on the state of the system. That is, it avoids **shared state** and **tight coupling** between parts of an application. Functions written in this way should not need to know about other functions. If function A depends on  function B, function B should be a part of function A's **composition**.
+
+We also **avoid the side-effect** of modifying an external variable. As discussed in [Objects and Functions](https://github.com/ga-wdi-lessons/js-objects-functions), a [side-effect](https://github.com/ga-wdi-lessons/js-objects-functions/blob/master/functions.md#output-and-side-effects) is an observable change in the application other than the return value or [output](https://github.com/ga-wdi-lessons/js-objects-functions/blob/master/functions.md#output-and-side-effects) of a called function.
 
 * What's an example of a side-effect we've commonly seen?
 
@@ -58,7 +72,7 @@ Here's an example of an impure function:
 
 ```js
 let age = 27
-function increaseAgeBy(int){
+function increaseAgeBy(int) {
   return age += int
 }
 increaseAgeBy(2)
@@ -80,7 +94,7 @@ We can make this function pure by not changing anything outside the function. In
 
 ```js
 let age = 27
-function increaseAgeBy(myAge,int){
+function increaseAgeBy(myAge,int) {
   return myAge += int
 }
 increaseAgeBy(age, 2)
@@ -90,10 +104,12 @@ increaseAgeBy(age, 2)
   <pre>console.log(age)</pre>
 </details>
 
-### Immutability
+## Immutability & Data Flow
+
+Immutability is another core concept in functional programming. It's simply the idea of *not changing data*, and instead *copying that data, and then applying a change to the copy of that data*. That may seem odd at first, but think about the concept of an undo history: you want to make sure you have an accurate history of the commands you've entered. If you were coding a feature like an undo history, you'd want to make sure that you had an accurate record of user actions that didn't change in strange or difficult to predict ways.
 
 When working with pure functions, it is important to avoid changing (or mutating)
-objects outside of the function. Immutability, the idea of not changing data at all, is another core concept in functional programming because it allows you to control data flow.
+objects outside of the function.  because it allows you to not only control how data flows.
 
 Why does the example below violate this concept of Immutability?
 
@@ -105,7 +121,10 @@ let nayana = {
 
 instructor.name = "Andy"
 ```
-If we wanted to make this change without violating Immutability, we could create a function that would return a **new** and **separate** version of `nayana` without modifying `nayana` directly:
+
+### Techniques for Dealing with Immutable Data
+
+If we wanted to make this change ***immutably***, we could create a function that would return a **new** and **separate** version of `nayana` without modifying `nayana` directly:
 
 ```js
 let nayana = {
@@ -125,12 +144,44 @@ let andy = updateName(nayana, "Andy")
 
 This example does not violate immutability because the original object (`nayana`) is not directly mutated. Instead, a copy of that object is created, then mutated, and finally returned. This way, the original object `nayana` is still accessible with its original values.
 
+#### Mutator Methods
 
-## Higher-Order Functions (15 minutes)
+A **mutator method** is a method which *changes the thing (an array in this case) it is called upon*.
+
+[Splice](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice)
+
+`.splice()` ***is a mutator method***, meaning it modifies whatever it is called on.
+
+[Slice](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice) does not change what it is called upon and instead creates a copy.
+
+`.slice()` ***is not a mutator method***. Use it for ***copying*** all or part of an array!
+
+
+It's easy to confuse slice and splice since there is a one letter difference; come up with mnemonic device.
+
+#### Spread Operator
+
+
+The spread operator `...` gives us a nice way of combining arrays, or adding a new item to an array. It exposes or "unwraps" the values of an array.
+
+```js
+let fruits = ["Tomato", "Cucumber", "Pumpkin"]
+let updatedFruits = [...fruits, "Avocado"]
+```
+
+The above code is equivalent to this:
+
+```js
+let fruits = ["Tomato", "Cucumber", "Pumpkin"]
+let updatedFruits = fruits.concat("Avocado")
+```
+
+## Higher-Order Functions
+
 
 How can we start implementing functional programming practices now?
 
-**Higher-Order Functions**
+**Higher-Order Functions** (15 minutes)
 
 These functions are considered to be another key area -- perhaps the most important -- in the functional programming paradigm.
 
@@ -138,30 +189,54 @@ In functional programming languages, functions are values. That is, they can be 
 
 Higher-order functions are functions that can take functions as arguments and/or return a function as output. They are good for **function composition.** That is, taking a function and putting it into another allows us to compose a lot of smaller functions into a bigger function.
 
+### .forEach
+
 We've already seen an example of a higher-order function with `forEach`:
 
 ```js
 let fruits = ["apples", "bananas", "cherries"];
 
-fruits.forEach((currentFruit) => {
-  console.log("Every day I eat two " + currentFruit)
+fruits.forEach( (currentFruit) => {
+  console.log("Every day I eat two " + currentFruit);
 });
 
 //vs
 
-for(let i = 0; i < fruits.length; i++) {
+for (let i = 0; i < fruits.length; i++) {
   console.log("Every day I eat two " + fruits[i]);
 }
 ```
 
 <details>
-  <summary>Anyone remember another one we've used quite frequently?</summary>
+  <summary> Anyone remember another method that takes a function as an argument we've used quite frequently? </summary>
   <p>`.on('click')`</p>
 </details>
 
-## Examples of functions that take functions as arguments:
+### .map
 
-### Filter
+<!-- TODO: add [1,2,3] double example -->
+
+
+#### Copying arrays of objects
+
+For arrays of objects, you can use `map()` in concert with `Object.assign()`
+
+> Example:
+```js
+let todos = [
+    {todo: "learn functional programming"},
+    {todo: "learn about currying and partial-application"},
+    {todo: "learn about thunks"},
+    {todo: "prevent head from exploding"}
+]
+let todosCopy = todos.map(obj => Object.assign({},obj))
+```
+
+### .reduce
+
+<!--  TODO: add summing example-->
+
+### .filter
 
  [`Filter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) is a method on an array that accepts another function as it’s argument, which it will then use to return a new filtered version of the array.
 
@@ -187,8 +262,8 @@ Much nicer than...
 ```js
 let ancient = [];
 
-for(let i = 0; i < naysayers.length; i++) {
-  if(naysayers[i].age > 300) {
+for (let i = 0; i < naysayers.length; i++) {
+  if (naysayers[i].age > 300) {
     ancient.push(naysayers[i])
   }
 }
@@ -196,26 +271,11 @@ for(let i = 0; i < naysayers.length; i++) {
 
 ## Break (15 minutes)
 
-## You do: Teach Back (90 Minutes)
+## Recursion
 
-You will be working in pairs. For each of these higher-order functions:
+Recursion is when a function calls itself within its own scope. It is a more advanced, functional way to iterate over data or to repeat an operation an arbitrary number of times (as opposed to utilizing a loop or higher-order function). In certain circumstances, it can be much more *perfomant* or faster, meaning it requires fewer computational resource.
 
-- Create an "explain it to me like i'm 5" explanation
-- Create a codepen / jsfiddle demoing how it works
-- Come up with a way to remember what it is and what it does
-
-1. [map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
-1. [reduce](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
-1. [sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)
-1. [find](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
-1. [every](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)
-1. [some](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
-
-After one hour, pairs will be called at random to give a 5-minute presentation on one of the above functions.
-
-## Bonus: Recursion
-
-Recursion is when a function calls itself within it's own scope. It is a more advanced, functional way to iterate over data or to repeat an operation an arbitrary number of times (as opposed to utilizing a loop or higher-order function). In certain circumstances, it can be much more *perfomant* (faster). Below is an example of using recursion to reverse a string:
+Here is an example of using recursion to reverse a string...
 
 ```js
 function reverse (str) {
@@ -247,12 +307,68 @@ function fizzBuzz(int, current = 1) {
 ```
 > Note that optional parameters are often used with recursion as they allow us to start a local variable at a certain value without having to set the value of it *within* the function body.
 
+## Functional Programming and the DOM
+
+The value of a pure function is evident with views: a Javascript function will construct a view by building parts of a view from some input, and create the *the exact same view from that input every time*. This adds a layer of predictability to how our views are constructed. Don't worry if the value of this isn't immediately obvious, it will be more apparent once we encounter frameworks later on in the course. In fact, modern views-libraries like React incorporate this idea into its core functioning.
+
+```js
+document.body.appendChild(
+  ul(
+    li( a('Home','/') ),
+    li( a('About','/about') ),
+    li( a('Contact Us','/contact') )
+  )
+)
+
+function ul (...children) {
+  console.log(children)
+  var el = document.createElement('ul')
+  for (var i = 0; i < children.length; i++) {
+    el.appendChild(children[i])
+  }
+  return el
+}
+
+function li (child) {
+  var el = document.createElement('li')
+  el.appendChild(child)
+  return el
+}
+
+function a (text, href) {
+  var anchor = document.createElement("a")
+  anchor.innerHTML = text
+  anchor.href = href
+  return anchor
+}
+```
+
+
+## You do: Teach Back (45 Minutes)
+
+You will be working in groups of three. For each of these higher-order functions:
+
+- Create an ELI5 (Explain it to me Like I'm 5) explanation
+- Create a codepen / jsfiddle demoing how it works
+- Come up with a way to remember what it is and what it does
+
+
+1. [sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)
+1. [find](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
+1. [every](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)
+1. [some](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
+
+After one hour, pairs will be called at random to give a 5-minute presentation on one of the above functions.
+
 ## Closing / Questions
 
 ## Resources
 
+- [What is Functional Programming?](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0#.9u4dyrpyc)
 - [Don't Be Scared of Functional Programming](https://www.smashingmagazine.com/2014/07/dont-be-scared-of-functional-programming/)
 - [Eloquent Javascript](http://eloquentjavascript.net/05_higher_order.html)
-- [Master the Javascript Interview](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0#.9u4dyrpyc)
-- [Functional Programming in Javascript](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0#.9u4dyrpyc)
 - [Introducing Reduce: Common Patterns](https://egghead.io/lessons/javascript-introducing-reduce-common-patterns)
+
+## Additional Reading
+- [Currying and Partial Application](https://medium.com/javascript-inside/currying-partial-application-f1365d5fad3f)
+- [Functional Programming in Javascript](https://stephen-young.me.uk/2013/01/20/functional-programming-with-javascript.html)
