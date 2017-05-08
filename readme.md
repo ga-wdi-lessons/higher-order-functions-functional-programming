@@ -106,6 +106,8 @@ increaseAgeBy(age, 2)
 
 ## Immutability & Data Flow
 
+<!-- Add in example about aliasing and memory storage -->
+
 Immutability is another core concept in functional programming. It's simply the idea of *not changing data*, and instead *copying that data, and then applying a change to the copy of that data*. That may seem odd at first, but think about the concept of an undo history: you want to make sure you have an accurate history of the commands you've entered. If you were coding a feature like an undo history, you'd want to make sure that you had an accurate record of user actions that didn't change in strange or difficult to predict ways.
 
 When working with pure functions, it is important to avoid changing (or mutating)
@@ -123,6 +125,8 @@ instructor.name = "Andy"
 ```
 
 ### Techniques for Dealing with Immutable Data
+
+#### Copying Objects
 
 If we wanted to make this change ***immutably***, we could create a function that would return a **new** and **separate** version of `nayana` without modifying `nayana` directly:
 
@@ -159,25 +163,25 @@ A **mutator method** is a method which *changes the thing (an array in this case
 
 It's easy to confuse slice and splice since there is a one letter difference; come up with mnemonic device.
 
-#### Spread Operator
+> Other mutator methods include `.reverse()`, `.pop()`, `.push()`, `.shift()`, `.unshift()`, and many others.
 
+#### Spread Operator
 
 The spread operator `...` gives us a nice way of combining arrays, or adding a new item to an array. It exposes or "unwraps" the values of an array.
 
 ```js
-let fruits = ["Tomato", "Cucumber", "Pumpkin"]
-let updatedFruits = [...fruits, "Avocado"]
+let coaches = ["Eric Taylor", "Jen Welter", "Vince Lombardi"]
+let updatedCoaches = [...coaches, "Coach McGuirk"]
 ```
 
 The above code is equivalent to this:
 
 ```js
-let fruits = ["Tomato", "Cucumber", "Pumpkin"]
-let updatedFruits = fruits.concat("Avocado")
+let coaches = ["Eric Taylor", "Jen Welter", "Vince Lombardi"]
+let updatedCoaches = coaches.concat("Coach McGuirk")
 ```
 
 ## Higher-Order Functions
-
 
 How can we start implementing functional programming practices now?
 
@@ -273,9 +277,71 @@ for (let i = 0; i < naysayers.length; i++) {
 
 ## Recursion
 
-Recursion is when a function calls itself within its own scope. It is a more advanced, functional way to iterate over data or to repeat an operation an arbitrary number of times (as opposed to utilizing a loop or higher-order function). In certain circumstances, it can be much more *perfomant* or faster, meaning it requires fewer computational resource.
 
-Here is an example of using recursion to reverse a string...
+A recursive function is a function which calls itself. Recursion happens when a function calls itself within its own scope. It is a more advanced, functional way to iterate over data or to repeat an operation an arbitrary number of times (as opposed to utilizing a loop or higher-order function). In certain circumstances, it can be much more *perfomant* or faster, meaning it requires fewer computational resource.
+
+### Examples of Recursion
+
+#### Infinite Recurison
+
+___Running this code in a browser will freeze your page___
+
+> In Chrome, access the task manager from the menu var at the top of your screen Window > Task Manager and End the Task on the appropriate tab. If you've done this correctly, the tab where the endless loop is occuring should 'break' and say "Ah Snap! Something went wrong."
+
+```js
+function loop(){
+  loop()
+}
+loop()
+```
+
+### Fibonacci Sequence
+
+The Fibonacci sequence is a classic example of recursion.
+
+The fibonacci numbers of `n` are the fibonacci numbers of `n - 1` + the
+fibonacci numbers of `n - 2`,
+where the fibonacci numbers of `1` and `2` are both 1.
+
+```
+3: 1 + 1  = 2
+4: 1 + 2  = 3
+5: 2 + 3  = 5
+6: 3 + 5  = 8
+7: 5 + 8  = 13
+```
+
+```js
+function fib(n){
+  if(n === 1 || n === 2){
+    return 1
+  }
+  return fib(n-1) + fib(n-2)
+}
+```
+
+<!-- TODO: Consider adding back in factorial you-do activity from: https://github.com/ga-wdi-lessons/functional-programming/tree/1bc9b3ee3b88b0239ca70ef7fd4f516247da05bc/ -->
+
+
+### Replacing Loops with Recursion
+
+Let's count:
+
+```js
+function countUpTo(n, current = 0){
+  console.log(current)
+  if(current === n) return
+  countUpTo(n,++current)
+}
+
+countUpTo(10)
+```
+
+<!-- TODO: Consider adding back in count down you-do activity from: https://github.com/ga-wdi-lessons/functional-programming/tree/1bc9b3ee3b88b0239ca70ef7fd4f516247da05bc/ -->
+
+#### Reverse a String with Recursion
+
+> Here is an example of using recursion to reverse a string...
 
 ```js
 function reverse (str) {
@@ -287,7 +353,9 @@ function reverse (str) {
 }
 ```
 
-We could similarly do FizzBuzz recursively:
+#### Recursive FizzBuzz
+
+You can write a solution to FizzBuzz without loops using recursion
 
 ```js
 function fizzBuzz(int, current = 1) {
@@ -304,6 +372,7 @@ function fizzBuzz(int, current = 1) {
   }
   fizzBuzz(int, current + 1)
 }
+
 ```
 > Note that optional parameters are often used with recursion as they allow us to start a local variable at a certain value without having to set the value of it *within* the function body.
 
