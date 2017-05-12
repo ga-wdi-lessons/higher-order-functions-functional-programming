@@ -98,17 +98,17 @@ objects outside of the function. Immutability, the idea of not changing data at 
 Why does the example below violate this concept of Immutability?
 
 ```js
-let nayana = {
+let instructor = {
   name: 'Nayana',
   age: 13
 }
 
 instructor.name = "Andy"
 ```
-If we wanted to make this change without violating Immutability, we could create a function that would return a **new** and **separate** version of `nayana` without modifying `nayana` directly:
+If we wanted to make this change without violating Immutability, we could create a function that would return a **new** and **separate** version of `instructor` without modifying `instructor` directly:
 
 ```js
-let nayana = {
+let instructor = {
   name: 'Nayana',
   age: 13
 }
@@ -119,11 +119,12 @@ function updateName(instructor, newName) {
   return newInstructor
 }
 
-let andy = updateName(nayana, "Andy")
+let andy = updateName(instructor, "Andy")
 ```
+
 > Object.assign() is the simplest way to make a copy of an existing object
 
-This example does not violate immutability because the original object (`nayana`) is not directly mutated. Instead, a copy of that object is created, then mutated, and finally returned. This way, the original object `nayana` is still accessible with its original values.
+This example does not violate immutability because the original object (`instructor`) is not directly mutated. Instead, a copy of that object is created, then mutated, and finally returned. This way, the original object `instructor` is still accessible with its original values.
 
 
 ## Higher-Order Functions (15 minutes)
@@ -207,7 +208,6 @@ You will be working in pairs. For each of these higher-order functions:
 1. [map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
 1. [reduce](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
 1. [sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)
-1. [find](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
 1. [every](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)
 1. [some](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
 
